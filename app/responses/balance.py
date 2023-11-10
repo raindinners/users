@@ -9,4 +9,4 @@ from schema import ApplicationSchema
 class BalanceResponse(ApplicationSchema):
     id: int
     balance: int
-    bonus_time: Optional[datetime.datetime] = None
+    next_time_bonus: Optional[datetime.datetime] = None

@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class UserModel(ORMModel):
     telegram_id: Mapped[types.BigInt]
-    username: Mapped[types.String32] = mapped_column(unique=True, index=True)
+    username: Mapped[Optional[types.String32]] = mapped_column(unique=True, index=True)
     first_name: Mapped[types.String30]
     last_name: Mapped[Optional[types.String30]]
 

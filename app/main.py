@@ -12,7 +12,7 @@ def main() -> None:
     uvicorn.run(
         app="app:app",
         host=server_settings.HOSTNAME,
-        port=server_settings.AUTH_PORT,
+        port=server_settings.USERS_PORT,
         reload=server_settings.RELOAD,
     )
 

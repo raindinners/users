@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import datetime
 from typing import Any, Dict, Optional
 
 import jwt
@@ -82,9 +83,9 @@ async def get_user(
     session: AsyncSession = Depends(get_session),
 ) -> UserModel:
     user = await get_user_core(
-        user_id=authorization.user_id
-        if authorization.user_id
-        else get_user_id_failed(access_token=authorization.access_token),
+        user_id=get_user_id_failed(access_token=authorization.access_token)
+        if authorization.access_token
+        else authorization.user_id,
         session=session,
     )
     if not user:
@@ -139,7 +140,13 @@ async def get_bonus(
         )
 
     await crud.balances.update.one(
-        Values({BalanceModel.balance: user.balance + BalanceModel.BONUS}),
+        Values(
+            {
+                BalanceModel.balance: user.balance.balance + BalanceModel.BONUS,
+                BalanceModel.next_time_bonus: datetime.datetime.now()
+                + datetime.timedelta(hours=BalanceModel.BONUS_EVERY_HOURS),
+            }
+        ),
         Where(BalanceModel.id == user.balance.id),
         Returning(BalanceModel.id),
         session=session,
