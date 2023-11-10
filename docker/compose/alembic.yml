@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  auth_alembic:
+    image: auth_alembic:latest
+    build:
+      context: ${PWD}/auth
+      dockerfile: docker/Dockerfile
+    command: /bin/bash -c \
+      "echo '[+] Run migrations' && \
+      alembic stamp head --purge && \
+      alembic revision --autogenerate -m "Migrations" && \
+      alembic upgrade head"
+    volumes:
+      - ${PWD}/auth/:/app
+    env_file:
+      - ${PWD}/.env
+    depends_on:
+      auth_database:
+        condition: service_healthy
+    networks:
+      - raindinners_network
