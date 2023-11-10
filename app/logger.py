@@ -4,7 +4,7 @@ import colorlog
 
 from core.settings import logging_settings
 
-logger = logging.getLogger(logging_settings.AUTH_MAIN_LOGGER_NAME)
+logger = logging.getLogger(logging_settings.USERS_MAIN_LOGGER_NAME)
 logger.propagate = False
 logger.setLevel(logging_settings.LOGGING_LEVEL)
 

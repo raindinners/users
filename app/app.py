@@ -22,12 +22,12 @@ def create_application() -> FastAPI:
     Setup FastAPI application: middleware, exception handlers, jwt, logger.
     """
 
-    docs_url, redoc_url, openapi_url = "/auth/docs", "/auth/redoc", "/auth/openapi.json"
+    docs_url, redoc_url, openapi_url = "/users/docs", "/users/redoc", "/users/openapi.json"
     if not server_settings.DEBUG:
         docs_url, redoc_url, openapi_url = None, None, None
 
     application = FastAPI(
-        title="raindinners.auth",
+        title="raindinners.users",
         description="Passwordless API for User Authorization.",
         version="1.0a",
         debug=server_settings.DEBUG,
@@ -35,7 +35,7 @@ def create_application() -> FastAPI:
         redoc_url=redoc_url,
         openapi_url=openapi_url,
     )
-    application.include_router(api_router, tags=["auth"], prefix="/auth")
+    application.include_router(api_router, tags=["users"], prefix="/users")
 
     def create_on_event() -> None:
         @application.on_event("startup")
@@ -48,7 +48,7 @@ def create_application() -> FastAPI:
 
     def create_routes() -> None:
         @application.post(
-            path="/auth",
+            path="/users",
             response_model=ApplicationResponse[bool],
             status_code=status.HTTP_200_OK,
         )
@@ -62,7 +62,7 @@ def create_application() -> FastAPI:
         logger.info("Creating an admin panel is only available in debug mode, status: ...")
         if server_settings.DEBUG:
             admin = SQLAlchemyAdmin(
-                base_url="/auth/admin",
+                base_url="/users/admin",
                 engine=engine,
                 debug=False,
             )

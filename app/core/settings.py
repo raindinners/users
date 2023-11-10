@@ -16,14 +16,14 @@ class ServerSettings(BaseSettings):
     DEBUG: bool
     RELOAD: bool
     HOSTNAME: str
-    AUTH_PORT: int
+    USERS_PORT: int
 
 
 server_settings = ServerSettings()
 
 
 class LoggingSettings(BaseSettings):
-    AUTH_MAIN_LOGGER_NAME: str
+    USERS_MAIN_LOGGER_NAME: str
     LOGGING_LEVEL: str
 
 
@@ -34,7 +34,7 @@ class DatabaseSettings(BaseSettings):
     DATABASE_DRIVER: str
     DATABASE_USERNAME: str
     DATABASE_PASSWORD: str
-    AUTH_DATABASE_HOSTNAME: str
+    USERS_DATABASE_HOSTNAME: str
     DATABASE_PORT: str
     DATABASE_NAME: str
 
@@ -44,7 +44,7 @@ class DatabaseSettings(BaseSettings):
             self.DATABASE_DRIVER,
             self.DATABASE_USERNAME,
             self.DATABASE_PASSWORD,
-            self.AUTH_DATABASE_HOSTNAME,
+            self.USERS_DATABASE_HOSTNAME,
             self.DATABASE_PORT,
             self.DATABASE_NAME,
         )
