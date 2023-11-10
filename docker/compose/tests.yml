@@ -1,22 +1,22 @@
 version: "3.9"
 
 services:
-  auth_tests:
-    image: auth_tests:latest
+  users_tests:
+    image: users_tests:latest
     build:
-      context: ${PWD}/auth
+      context: ${PWD}/users
       dockerfile: docker/Dockerfile
     command: /bin/bash -c \
       "echo '[+] Run tests' && \
       python -m pytest --capture=sys --cov=app --cov-report html tests"
     volumes:
-      - ${PWD}/auth/:/app
+      - ${PWD}/users/:/app
     env_file:
       - ${PWD}/.env
     environment:
-      DATABASE_HOSTNAME: auth_tests_database
+      DATABASE_HOSTNAME: users_tests_database
     depends_on:
-      auth_tests_database:
+      users_tests_database:
         condition: service_healthy
     networks:
       - raindinners_network

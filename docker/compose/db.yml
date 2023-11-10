@@ -1,11 +1,11 @@
 version: "3.9"
 
 services:
-  auth_database:
+  users_database:
     image: postgres:15-bookworm
     restart: always
     volumes:
-      - postgres_auth_data_database:/var/lib/postgresql/data/
+      - postgres_users_data_database:/var/lib/postgresql/data/
     env_file:
       - ${PWD}/.env
     environment:
@@ -23,4 +23,4 @@ services:
       retries: 10
 
 volumes:
-  postgres_auth_data_database:
+  postgres_users_data_database:

@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "auth"
-version = "1.0a"
+name = "users"
+version = "0.1"
 description = "Passwordless API for User Authorization."
 authors = ["raindinners"]
 license = "MIT"

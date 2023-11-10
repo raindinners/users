@@ -4,5 +4,6 @@ from schema import ApplicationSchema
 
 
 class UpdateBalanceRequest(ApplicationSchema):
-    access_token: str
+    user_id: int
     balance: int
+    bot_token: str

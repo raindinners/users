@@ -29,7 +29,6 @@ def create_application() -> FastAPI:
     application = FastAPI(
         title="raindinners.users",
         description="Passwordless API for User Authorization.",
-        version="1.0a",
         debug=server_settings.DEBUG,
         docs_url=docs_url,
         redoc_url=redoc_url,

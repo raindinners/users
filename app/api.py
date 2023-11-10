@@ -160,9 +160,13 @@ async def update_balance(
     session: AsyncSession = Depends(get_session),
     request: UpdateBalanceRequest = Body(...),
 ) -> Dict[str, Any]:
-    user = await get_user_core(
-        session=session, user_id=get_user_id_failed(access_token=request.access_token)
-    )
+    if bot_settings.BOT_TOKEN != request.bot_token:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="UNKNOWN_ERROR",
+        )
+
+    user = await get_user_core(session=session, user_id=request.user_id)
     await crud.balances.update.one(
         Values({BalanceModel.balance: user.balance.balance + request.balance}),
         Where(BalanceModel.id == user.balance.id),
